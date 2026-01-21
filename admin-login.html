@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Administratora - Szpontowe Seanse</title>
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <div style="display: flex; align-items: center;">
+        <a href="index.php" class="logo">Szpontowe Seanse</a>
+        <span class="slogan">Twoje filmy, wszędzie</span>
+      </div>
+
+      <div class="header-right">
+        <div class="theme-toggle" id="themeToggle">
+          <div class="theme-toggle-slider"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- LOGIN SECTION -->
+<section class="admin-login-section">
+  <div class="container">
+    <div class="login-container">
+      <div class="login-box">
+        <h1 class="login-title">Panel Administratora</h1>
+        <p class="login-subtitle">Zaloguj się, aby zarządzać filmami</p>
+
+        <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
+          <div class="input-group">
+            <label class="input-label" for="email">Email</label>
+            <input
+                    type="email"
+                    class="input"
+                    id="email"
+                    placeholder="admin@szpontowe-seanse.pl"
+                    required
+            >
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="password">Hasło</label>
+            <input
+                    type="password"
+                    class="input"
+                    id="password"
+                    placeholder="••••••••"
+                    required
+            >
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            Zaloguj się
+          </button>
+        </form>
+
+        <div class="login-info">
+          <p>Demo: <strong>admin@szpontowe-seanse.pl</strong> / <strong>admin123</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="js/theme-switcher.js"></script>
+<script src="js/admin-login.js"></script>
+</body>
+</html>

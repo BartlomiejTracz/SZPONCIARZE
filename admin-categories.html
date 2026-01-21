@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zarządzanie Kategoriami - Panel Administratora</title>
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <div style="display: flex; align-items: center;">
+        <a href="index.php" class="logo">Szpontowe Seanse</a>
+        <span class="slogan">Panel Administratora</span>
+      </div>
+
+      <div class="header-right">
+        <div class="theme-toggle" id="themeToggle">
+          <div class="theme-toggle-slider"></div>
+        </div>
+
+        <div class="user-info">
+          <div class="user-avatar">AD</div>
+          <span class="user-name">Admin</span>
+        </div>
+
+        <button class="btn btn-secondary btn-sm" onclick="logout()">
+          Wyloguj
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ADMIN NAVIGATION -->
+<nav class="admin-nav">
+  <div class="container" style="display: flex; gap: var(--spacing-sm);">
+    <a href="admin-dashboard.html" class="admin-nav-link">Dashboard</a>
+    <a href="admin-movies.html" class="admin-nav-link">Filmy</a>
+    <a href="admin-categories.html" class="admin-nav-link active">Kategorie</a>
+  </div>
+</nav>
+
+<!-- CATEGORIES MANAGEMENT -->
+<section class="admin-section">
+  <div class="container">
+    <!-- Header with Add Button -->
+    <div class="admin-header">
+      <h2 class="admin-title">Zarządzanie kategoriami</h2>
+      <button class="btn btn-primary" onclick="showAddCategoryForm()">
+        + Dodaj kategorię
+      </button>
+    </div>
+
+    <!-- Add/Edit Category Form (hidden by default) -->
+    <div class="admin-form" id="categoryForm" style="display: none; margin-bottom: var(--spacing-xl);">
+      <h3 style="margin-bottom: var(--spacing-lg); font-family: var(--font-heading);" id="formTitle">
+        Dodaj nową kategorię
+      </h3>
+
+      <form onsubmit="saveCategory(event)">
+        <div class="form-grid">
+          <!-- Nazwa -->
+          <div class="input-group">
+            <label class="input-label" for="categoryName">Nazwa kategorii *</label>
+            <input
+                    type="text"
+                    class="input"
+                    id="categoryName"
+                    placeholder="np. Dramat"
+                    required
+            >
+          </div>
+
+          <!-- Slug -->
+          <div class="input-group">
+            <label class="input-label" for="categorySlug">Slug (URL) *</label>
+            <input
+                    type="text"
+                    class="input"
+                    id="categorySlug"
+                    placeholder="dramat"
+                    required
+            >
+          </div>
+
+          <!-- Ikona -->
+          <div class="input-group">
+            <label class="input-label" for="categoryIcon">Ikona (emoji)</label>
+            <input
+                    type="text"
+                    class="input"
+                    id="categoryIcon"
+                    placeholder="🎭"
+                    maxlength="2"
+            >
+          </div>
+
+          <!-- Kolor -->
+          <div class="input-group">
+            <label class="input-label" for="categoryColor">Kolor</label>
+            <input
+                    type="color"
+                    class="input"
+                    id="categoryColor"
+                    value="#e50914"
+            >
+          </div>
+
+          <!-- Opis -->
+          <div class="input-group form-grid-full">
+            <label class="input-label" for="categoryDescription">Opis</label>
+            <textarea
+                    class="input"
+                    id="categoryDescription"
+                    rows="3"
+                    placeholder="Krótki opis kategorii..."
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div style="display: flex; gap: var(--spacing-sm); margin-top: var(--spacing-lg);">
+          <button type="submit" class="btn btn-primary">
+            Zapisz kategorię
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="hideCategoryForm()">
+            Anuluj
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Categories Grid -->
+    <div class="categories-grid">
+      <!-- Category 1 -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">🎭</div>
+          <div class="category-color-badge" style="background-color: #e50914;"></div>
+        </div>
+        <h3 class="category-name">Dramat</h3>
+        <p class="category-slug">dramat</p>
+        <p class="category-description">
+          Filmy dramatyczne o głębokich emocjach i życiowych historiach
+        </p>
+        <div class="category-stats">
+          <span>🎬 156 filmów</span>
+        </div>
+        <div class="category-actions">
+          <button class="btn btn-secondary btn-sm" onclick="editCategory(1)">
+            ✏️ Edytuj
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="deleteCategory(1)">
+            🗑️ Usuń
+          </button>
+        </div>
+      </div>
+
+      <!-- Category 2 -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">😂</div>
+          <div class="category-color-badge" style="background-color: #ffd700;"></div>
+        </div>
+        <h3 class="category-name">Komedia</h3>
+        <p class="category-slug">komedia</p>
+        <p class="category-description">
+          Filmy komediowe wywołujące uśmiech i poprawiające humor
+        </p>
+        <div class="category-stats">
+          <span>🎬 92 filmy</span>
+        </div>
+        <div class="category-actions">
+          <button class="btn btn-secondary btn-sm" onclick="editCategory(2)">
+            ✏️ Edytuj
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="deleteCategory(2)">
+            🗑️ Usuń
+          </button>
+        </div>
+      </div>
+
+      <!-- Category 3 -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">🕵️</div>
+          <div class="category-color-badge" style="background-color: #8b00ff;"></div>
+        </div>
+        <h3 class="category-name">Thriller</h3>
+        <p class="category-slug">thriller</p>
+        <p class="category-description">
+          Filmy trzymające w napięciu do ostatniej minuty
+        </p>
+        <div class="category-stats">
+          <span>🎬 94 filmy</span>
+        </div>
+        <div class="category-actions">
+          <button class="btn btn-secondary btn-sm" onclick="editCategory(3)">
+            ✏️ Edytuj
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="deleteCategory(3)">
+            🗑️ Usuń
+          </button>
+        </div>
+      </div>
+
+      <!-- Category 4 -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">😱</div>
+          <div class="category-color-badge" style="background-color: #000000;"></div>
+        </div>
+        <h3 class="category-name">Horror</h3>
+        <p class="category-slug">horror</p>
+        <p class="category-description">
+          Mrożące krew w żyłach produkcje dla fanów strachu
+        </p>
+        <div class="category-stats">
+          <span>🎬 67 filmów</span>
+        </div>
+        <div class="category-actions">
+          <button class="btn btn-secondary btn-sm" onclick="editCategory(4)">
+            ✏️ Edytuj
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="deleteCategory(4)">
+            🗑️ Usuń
+          </button>
+        </div>
+      </div>
+
+      <!-- Category 5 -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">🚀</div>
+          <div class="category-color-badge" style="background-color: #00bfff;"></div>
+        </div>
+        <h3 class="category-name">Sci-Fi</h3>
+        <p class="category-slug">sci-fi</p>
+        <p class="category-description">
+          Fantastyka naukowa, przyszłość i kosmos
+        </p>
+        <div class="category-stats">
+          <span>🎬 48 filmów</span>
+        </div>
+        <div class="category-actions">
+          <button class="btn btn-secondary btn-sm" onclick="editCategory(5)">
+            ✏️ Edytuj
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="deleteCategory(5)">
+            🗑️ Usuń
+          </button>
+        </div>
+      </div>
+
+      <!-- Category 6 -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">💥</div>
+          <div class="category-color-badge" style="background-color: #ff4500;"></div>
+        </div>
+        <h3 class="category-name">Akcja</h3>
+        <p class="category-slug">akcja</p>
+        <p class="category-description">
+          Dynamiczne filmy pełne adrenaliny i efektów specjalnych
+        </p>
+        <div class="category-stats">
+          <span>🎬 103 filmy</span>
+        </div>
+        <div class="category-actions">
+          <button class="btn btn-secondary btn-sm" onclick="editCategory(6)">
+            ✏️ Edytuj
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="deleteCategory(6)">
+            🗑️ Usuń
+          </button>
+        </div>
+      </div>
+
+      <!-- Category 7 -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">❤️</div>
+          <div class="category-color-badge" style="background-color: #ff1493;"></div>
+        </div>
+        <h3 class="category-name">Romans</h3>
+        <p class="category-slug">romans</p>
+        <p class="category-description">
+          Romantyczne historie miłosne na każdą okazję
+        </p>
+        <div class="category-stats">
+          <span>🎬 78 filmów</span>
+        </div>
+        <div class="category-actions">
+          <button class="btn btn-secondary btn-sm" onclick="editCategory(7)">
+            ✏️ Edytuj
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="deleteCategory(7)">
+            🗑️ Usuń
+          </button>
+        </div>
+      </div>
+
+      <!-- Category 8 -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">🎨</div>
+          <div class="category-color-badge" style="background-color: #32cd32;"></div>
+        </div>
+        <h3 class="category-name">Animacja</h3>
+        <p class="category-slug">animacja</p>
+        <p class="category-description">
+          Filmy animowane dla dzieci i dorosłych
+        </p>
+        <div class="category-stats">
+          <span>🎬 85 filmów</span>
+        </div>
+        <div class="category-actions">
+          <button class="btn btn-secondary btn-sm" onclick="editCategory(8)">
+            ✏️ Edytuj
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="deleteCategory(8)">
+            🗑️ Usuń
+          </button>
+        </div>
+      </div>
+
+      <!-- Category 9 -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">🏆</div>
+          <div class="category-color-badge" style="background-color: #daa520;"></div>
+        </div>
+        <h3 class="category-name">Biograficzny</h3>
+        <p class="category-slug">biograficzny</p>
+        <p class="category-description">
+          Prawdziwe historie życia znanych postaci
+        </p>
+        <div class="category-stats">
+          <span>🎬 42 filmy</span>
+        </div>
+        <div class="category-actions">
+          <button class="btn btn-secondary btn-sm" onclick="editCategory(9)">
+            ✏️ Edytuj
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="deleteCategory(9)">
+            🗑️ Usuń
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="js/theme-switcher.js"></script>
+<script src="js/admin-login.js"></script>
+<script src="js/admin-categories.js"></script>
+<script>
+  // Sprawdź czy admin jest zalogowany
+  checkAdminAuth();
+</script>
+</body>
+</html>

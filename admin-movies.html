@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zarządzanie Filmami - Panel Administratora</title>
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <div style="display: flex; align-items: center;">
+        <a href="index.php" class="logo">Szpontowe Seanse</a>
+        <span class="slogan">Panel Administratora</span>
+      </div>
+
+      <div class="header-right">
+        <div class="theme-toggle" id="themeToggle">
+          <div class="theme-toggle-slider"></div>
+        </div>
+
+        <div class="user-info">
+          <div class="user-avatar">AD</div>
+          <span class="user-name">Admin</span>
+        </div>
+
+        <button class="btn btn-secondary btn-sm" onclick="logout()">
+          Wyloguj
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ADMIN NAVIGATION -->
+<nav class="admin-nav">
+  <div class="container" style="display: flex; gap: var(--spacing-sm);">
+    <a href="admin-dashboard.html" class="admin-nav-link">Dashboard</a>
+    <a href="admin-movies.html" class="admin-nav-link active">Filmy</a>
+    <a href="admin-categories.html" class="admin-nav-link">Kategorie</a>
+  </div>
+</nav>
+
+<!-- MOVIES MANAGEMENT -->
+<section class="admin-section">
+  <div class="container">
+    <!-- Header with Add Button -->
+    <div class="admin-header">
+      <h2 class="admin-title">Zarządzanie filmami</h2>
+      <button class="btn btn-primary" onclick="showAddMovieForm()">
+        + Dodaj nowy film
+      </button>
+    </div>
+
+    <!-- Add/Edit Movie Form (hidden by default) -->
+    <div class="admin-form" id="movieForm" style="display: none; margin-bottom: var(--spacing-xl);">
+      <h3 style="margin-bottom: var(--spacing-lg); font-family: var(--font-heading);" id="formTitle">
+        Dodaj nowy film
+      </h3>
+
+      <form>
+        <div class="form-grid">
+          <!-- Tytuł -->
+          <div class="input-group form-grid-full">
+            <label class="input-label" for="movieTitle">Tytuł filmu *</label>
+            <input
+                    type="text"
+                    class="input"
+                    id="movieTitle"
+                    placeholder="np. Joker"
+                    required
+            >
+          </div>
+
+          <!-- Rok produkcji -->
+          <div class="input-group">
+            <label class="input-label" for="movieYear">Rok produkcji *</label>
+            <input
+                    type="number"
+                    class="input"
+                    id="movieYear"
+                    placeholder="2019"
+                    min="1900"
+                    max="2030"
+                    required
+            >
+          </div>
+
+          <!-- Czas trwania -->
+          <div class="input-group">
+            <label class="input-label" for="movieDuration">Czas trwania (min) *</label>
+            <input
+                    type="number"
+                    class="input"
+                    id="movieDuration"
+                    placeholder="122"
+                    required
+            >
+          </div>
+
+          <!-- Reżyseria -->
+          <div class="input-group">
+            <label class="input-label" for="movieDirector">Reżyseria *</label>
+            <input
+                    type="text"
+                    class="input"
+                    id="movieDirector"
+                    placeholder="Todd Phillips"
+                    required
+            >
+          </div>
+
+          <!-- Obsada -->
+          <div class="input-group">
+            <label class="input-label" for="movieCast">Obsada</label>
+            <input
+                    type="text"
+                    class="input"
+                    id="movieCast"
+                    placeholder="Joaquin Phoenix, Robert De Niro"
+            >
+          </div>
+
+          <!-- Opis -->
+          <div class="input-group form-grid-full">
+            <label class="input-label" for="movieDescription">Opis *</label>
+            <textarea
+                    class="input"
+                    id="movieDescription"
+                    rows="4"
+                    placeholder="Wprowadź opis filmu..."
+                    required
+            ></textarea>
+          </div>
+
+          <!-- Kategorie -->
+          <div class="input-group form-grid-full">
+            <label class="input-label">Kategorie</label>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm);">
+              <label class="checkbox-label">
+                <input type="checkbox" value="dramat"> Dramat
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="komedia"> Komedia
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="thriller"> Thriller
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="horror"> Horror
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="sci-fi"> Sci-Fi
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="akcja"> Akcja
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="romans"> Romans
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="animacja"> Animacja
+              </label>
+            </div>
+          </div>
+
+          <!-- Platformy streamingowe -->
+          <div class="input-group form-grid-full">
+            <label class="input-label">Dostępne na platformach</label>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm);">
+              <label class="checkbox-label">
+                <input type="checkbox" value="netflix"> Netflix
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="hbo"> HBO Max
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="disney"> Disney+
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="prime"> Amazon Prime
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="apple"> Apple TV+
+              </label>
+            </div>
+          </div>
+
+          <!-- Poster -->
+          <div class="input-group form-grid-full">
+            <label class="input-label" for="moviePoster">Poster filmu</label>
+            <div class="file-input-wrapper">
+              <input type="file" id="moviePoster" accept="image/*">
+              <label for="moviePoster" class="file-input-label">
+                📁 Wybierz plik
+              </label>
+              <span id="fileName" style="margin-left: var(--spacing-sm); color: var(--text-muted);"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div style="display: flex; gap: var(--spacing-sm); margin-top: var(--spacing-lg);">
+          <button type="submit" class="btn btn-primary">
+            Zapisz film
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="hideMovieForm()">
+            Anuluj
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Movies Table -->
+    <div class="admin-table-container">
+      <table class="admin-table">
+        <thead>
+        <tr>
+          <th style="width: 80px;">Poster</th>
+          <th>Tytuł</th>
+          <th style="width: 80px;">Rok</th>
+          <th style="width: 100px;">Czas</th>
+          <th>Reżyseria</th>
+          <th style="width: 100px;">Ocena</th>
+          <th style="width: 150px;">Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Movie 1 -->
+        <tr>
+          <td>
+            <img src="assets/posters/123.jpg" alt="Joker" class="movie-thumbnail">
+          </td>
+          <td>
+            <strong>Joker</strong><br>
+            <small style="color: var(--text-muted);">Dramat, Thriller</small>
+          </td>
+          <td>2019</td>
+          <td>122 min</td>
+          <td>Todd Phillips</td>
+          <td>⭐ 8.5</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-secondary btn-icon-only" onclick="editMovie(1)" title="Edytuj">
+                ✏️
+              </button>
+              <button class="btn btn-secondary btn-icon-only" onclick="deleteMovie(1)" title="Usuń">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Movie 2 -->
+        <tr>
+          <td>
+            <img src="assets/posters/123.jpg" alt="Dune" class="movie-thumbnail">
+          </td>
+          <td>
+            <strong>Dune: Part Two</strong><br>
+            <small style="color: var(--text-muted);">Sci-Fi, Akcja</small>
+          </td>
+          <td>2024</td>
+          <td>166 min</td>
+          <td>Denis Villeneuve</td>
+          <td>⭐ 9.1</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-secondary btn-icon-only" onclick="editMovie(2)" title="Edytuj">
+                ✏️
+              </button>
+              <button class="btn btn-secondary btn-icon-only" onclick="deleteMovie(2)" title="Usuń">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Movie 3 -->
+        <tr>
+          <td>
+            <img src="assets/posters/123.jpg" alt="Oppenheimer" class="movie-thumbnail">
+          </td>
+          <td>
+            <strong>Oppenheimer</strong><br>
+            <small style="color: var(--text-muted);">Dramat, Biograficzny</small>
+          </td>
+          <td>2023</td>
+          <td>180 min</td>
+          <td>Christopher Nolan</td>
+          <td>⭐ 8.5</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-secondary btn-icon-only" onclick="editMovie(3)" title="Edytuj">
+                ✏️
+              </button>
+              <button class="btn btn-secondary btn-icon-only" onclick="deleteMovie(3)" title="Usuń">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Movie 4 -->
+        <tr>
+          <td>
+            <img src="assets/posters/123.jpg" alt="Barbie" class="movie-thumbnail">
+          </td>
+          <td>
+            <strong>Barbie</strong><br>
+            <small style="color: var(--text-muted);">Komedia, Fantasy</small>
+          </td>
+          <td>2023</td>
+          <td>114 min</td>
+          <td>Greta Gerwig</td>
+          <td>⭐ 7.8</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-secondary btn-icon-only" onclick="editMovie(4)" title="Edytuj">
+                ✏️
+              </button>
+              <button class="btn btn-secondary btn-icon-only" onclick="deleteMovie(4)" title="Usuń">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Movie 5 -->
+        <tr>
+          <td>
+            <img src="assets/posters/123.jpg" alt="Inception" class="movie-thumbnail">
+          </td>
+          <td>
+            <strong>Inception</strong><br>
+            <small style="color: var(--text-muted);">Sci-Fi, Thriller</small>
+          </td>
+          <td>2010</td>
+          <td>148 min</td>
+          <td>Christopher Nolan</td>
+          <td>⭐ 8.9</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-secondary btn-icon-only" onclick="editMovie(5)" title="Edytuj">
+                ✏️
+              </button>
+              <button class="btn btn-secondary btn-icon-only" onclick="deleteMovie(5)" title="Usuń">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Movie 6 -->
+        <tr>
+          <td>
+            <img src="assets/posters/123.jpg" alt="Parasite" class="movie-thumbnail">
+          </td>
+          <td>
+            <strong>Parasite</strong><br>
+            <small style="color: var(--text-muted);">Thriller, Dramat</small>
+          </td>
+          <td>2019</td>
+          <td>132 min</td>
+          <td>Bong Joon-ho</td>
+          <td>⭐ 8.6</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-secondary btn-icon-only" onclick="editMovie(6)" title="Edytuj">
+                ✏️
+              </button>
+              <button class="btn btn-secondary btn-icon-only" onclick="deleteMovie(6)" title="Usuń">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script src="js/theme-switcher.js"></script>
+<script src="js/admin-login.js"></script>
+<script src="js/admin-movies.js"></script>
+<script>
+  // Sprawdź czy admin jest zalogowany
+  checkAdminAuth();
+</script>
+</body>
+</html>
