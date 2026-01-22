@@ -1,3 +1,4 @@
+//Search backend
 const searchInput = document.getElementById('searchInput');
 const categoryFilter = document.getElementById('categoryFilter');
 
@@ -10,17 +11,9 @@ function filterMovies() {
 
     movieCards.forEach(card => {
         const title = card.querySelector('.movie-title').textContent.toLowerCase();
-
-        // Pobierz kategorie z data attribute (dodamy to za chwilę)
         const categories = card.dataset.categories || '';
-
-        // Sprawdź czy pasuje do wyszukiwania
         const matchesSearch = title.includes(searchQuery);
-
-        // Sprawdź czy pasuje do kategorii
         const matchesCategory = selectedCategory === '' || categories.includes(selectedCategory);
-
-        // Pokaż tylko jeśli pasuje do obu filtrów
         if (matchesSearch && matchesCategory) {
             card.style.display = 'block';
             visibleCount++;
@@ -29,7 +22,6 @@ function filterMovies() {
         }
     });
 
-    // Pokaż komunikat jeśli brak wyników
     const moviesGrid = document.getElementById('moviesGrid');
     let emptyMessage = document.getElementById('emptyMessage');
 
@@ -52,6 +44,5 @@ function filterMovies() {
     }
 }
 
-// Event listeners
 searchInput.addEventListener('input', filterMovies);
 categoryFilter.addEventListener('change', filterMovies);

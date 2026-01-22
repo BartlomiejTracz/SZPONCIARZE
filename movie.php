@@ -1,13 +1,11 @@
 <?php
 require_once 'config/database.php';
 
-// Pobierz ID filmu z URL
+#działa nie ruszać najlepiej
 $movie_id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
 
 $database = new Database();
 $db = $database->connect();
-
-// Pobierz dane filmu
 $query = "SELECT * FROM Filmy WHERE id_filmu = :id";
 $stmt = $db->prepare($query);
 $stmt->execute(['id' => $movie_id]);
@@ -18,16 +16,13 @@ if (!$movie) {
     exit;
 }
 
-// Pobierz recenzje filmu
 $query_reviews = "SELECT * FROM Recenzje WHERE id_filmu = :id ORDER BY data_dodania DESC";
 $stmt_reviews = $db->prepare($query_reviews);
 $stmt_reviews->execute(['id' => $movie_id]);
 $reviews = $stmt_reviews->fetchAll();
-
-// Policz liczbę recenzji
+#powinno działać ale bez wpisywania recenzji do bazy nie ma jak sprawdzić
 $review_count = count($reviews);
 
-// Pobierz aktorów filmu
 $query_actors = "
     SELECT a.imie, a.nazwisko 
     FROM Aktorzy a
@@ -77,17 +72,14 @@ $actors_string = implode(', ', $actors_list);
     </div>
 </header>
 
-<!-- MOVIE DETAILS -->
 <section class="movie-details-section">
     <div class="container">
         <div class="movie-details-grid">
-            <!-- Poster -->
             <div class="movie-poster-large-wrapper">
                 <img
                         src="<?php echo !empty($movie['poster_url']) ? htmlspecialchars($movie['poster_url']) : 'assets/posters/123.jpg'; ?>"
                         alt="<?php echo htmlspecialchars($movie['nazwa']); ?>"
                         class="movie-poster-large"
-                        onerror="this.src='assets/posters/123.jpg'"
                 >
                 <button class="favorite-btn-large" onclick="toggleFavorite(this, <?php echo $movie['id_filmu']; ?>)">
                     <span class="heart-icon">♡</span>
@@ -95,9 +87,8 @@ $actors_string = implode(', ', $actors_list);
                 </button>
             </div>
 
-            <!-- Info -->
             <div class="movie-info-detailed">
-                <!-- BADGES NAD TYTUŁEM -->
+                <!-- kategorie -->
                 <div class="movie-badges">
                     <?php
                     $genres = explode('/', $movie['gatunek']);
@@ -107,11 +98,10 @@ $actors_string = implode(', ', $actors_list);
                     <?php endforeach; ?>
                 </div>
 
-                <!-- TYTUŁ I GWIAZDKI -->
                 <div class="movie-header-wrapper">
                     <h1 class="movie-title-large"><?php echo htmlspecialchars($movie['nazwa']); ?></h1>
 
-                    <!-- GWIAZDKI -->
+                    <!-- GWIAZDKI TODO zanimować-->
                     <div class="rating-box-inline">
                         <h3>Oceń film</h3>
                         <div class="rating-stars-inline" id="ratingStars">
@@ -125,7 +115,7 @@ $actors_string = implode(', ', $actors_list);
                     </div>
                 </div>
 
-                <!-- META INFO -->
+                <!-- INFO -->
                 <div class="movie-meta-large">
                     <div class="meta-item">
                         <span class="meta-label">Rok produkcji:</span>
@@ -151,13 +141,11 @@ $actors_string = implode(', ', $actors_list);
                     </div>
                 </div>
 
-                <!-- OPIS -->
                 <div class="movie-description">
                     <h3>Opis</h3>
                     <p><?php echo nl2br(htmlspecialchars($movie['opis'])); ?></p>
                 </div>
 
-                <!-- PLATFORMY -->
                 <div class="streaming-platforms">
                     <h3>Dostępne na platformach:</h3>
                     <div class="platforms-list">
@@ -174,12 +162,11 @@ $actors_string = implode(', ', $actors_list);
     </div>
 </section>
 
-<!-- REVIEWS SECTION -->
+<!-- REVIEWS TODO W BACKENDZIE I TROCHE NIE DZIAŁA -->
 <section class="reviews-section">
     <div class="container">
         <h2 class="section-title">Recenzje użytkowników (<?php echo $review_count; ?>)</h2>
 
-        <!-- Add Review Form -->
         <div class="add-review-box">
             <h3>Dodaj swoją recenzję</h3>
             <textarea
@@ -193,7 +180,6 @@ $actors_string = implode(', ', $actors_list);
             </button>
         </div>
 
-        <!-- Reviews List -->
         <div class="reviews-list" id="reviewsList">
             <?php if (count($reviews) > 0): ?>
                 <?php foreach ($reviews as $review): ?>
@@ -221,16 +207,16 @@ $actors_string = implode(', ', $actors_list);
                             <?php echo nl2br(htmlspecialchars($review['tresc_recenzji'])); ?>
                         </div>
                         <div class="review-actions">
-                            <button class="review-action-btn">👍 Pomocne (0)</button>
+                            <button class="review-action-btn">Pomocne (0)</button>
                             <button class="review-action-btn delete-review" onclick="deleteReview(<?php echo $review['id_recenzji']; ?>)" title="Usuń recenzję (tylko administrator)">
-                                🗑️ Usuń
+                                 Usuń
                             </button>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
                 <div class="reviews-empty">
-                    <div class="reviews-empty-icon">💬</div>
+                    <div class="reviews-empty-icon"></div>
                     <p>Brak recenzji. Bądź pierwszą osobą, która doda recenzję!</p>
                 </div>
             <?php endif; ?>
@@ -240,7 +226,7 @@ $actors_string = implode(', ', $actors_list);
 
 <script src="js/theme-switcher.js"></script>
 <script src="js/favorites.js"></script>
-<script src="js/movie-rating.js"></script>
+<!--<script src="js/movie-rating.js"></script>-->
 <script src="js/reviews.js"></script>
 </body>
 </html>

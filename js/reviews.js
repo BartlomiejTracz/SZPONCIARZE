@@ -8,21 +8,18 @@ function addReview() {
         return;
     }
 
-    // TODO: Wysłać do backendu
     console.log('Nowa recenzja:', reviewText);
 
-    // Mockup - dodaj recenzję do listy
     const reviewsList = document.getElementById('reviewsList');
     const newReview = createReviewCard('Ty', 'Teraz', reviewText, 0);
     reviewsList.insertAdjacentHTML('afterbegin', newReview);
 
-    // Wyczyść textarea
     textarea.value = '';
 
     alert('Recenzja została dodana!');
 }
 
-// Delete Review (tylko admin)
+// Delete Review
 function deleteReview(button) {
     if (confirm('Czy na pewno chcesz usunąć tę recenzję?')) {
         const reviewCard = button.closest('.review-card');
@@ -38,7 +35,7 @@ function deleteReview(button) {
     }
 }
 
-// Create Review Card HTML
+// Create Review
 function createReviewCard(author, date, content, helpful) {
     const initials = author.split(' ').map(n => n[0]).join('').toUpperCase();
 
@@ -70,7 +67,7 @@ function createReviewCard(author, date, content, helpful) {
     `;
 }
 
-// Animation keyframes (dodaj do CSS)
+// Animacje
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {

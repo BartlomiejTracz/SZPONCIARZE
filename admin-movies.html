@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="pl" data-theme="dark">
+<!-- wygenerowane z chata są emotki itp więc trzeba zmienic albo może sie przyczepić-->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +14,7 @@
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-<!-- HEADER -->
+
 <header class="header">
   <div class="container">
     <div class="header-content">
@@ -39,7 +41,7 @@
   </div>
 </header>
 
-<!-- ADMIN NAVIGATION -->
+
 <nav class="admin-nav">
   <div class="container" style="display: flex; gap: var(--spacing-sm);">
     <a href="admin-dashboard.html" class="admin-nav-link">Dashboard</a>
@@ -48,10 +50,8 @@
   </div>
 </nav>
 
-<!-- MOVIES MANAGEMENT -->
 <section class="admin-section">
   <div class="container">
-    <!-- Header with Add Button -->
     <div class="admin-header">
       <h2 class="admin-title">Zarządzanie filmami</h2>
       <button class="btn btn-primary" onclick="showAddMovieForm()">
@@ -59,7 +59,6 @@
       </button>
     </div>
 
-    <!-- Add/Edit Movie Form (hidden by default) -->
     <div class="admin-form" id="movieForm" style="display: none; margin-bottom: var(--spacing-xl);">
       <h3 style="margin-bottom: var(--spacing-lg); font-family: var(--font-heading);" id="formTitle">
         Dodaj nowy film
@@ -67,7 +66,6 @@
 
       <form>
         <div class="form-grid">
-          <!-- Tytuł -->
           <div class="input-group form-grid-full">
             <label class="input-label" for="movieTitle">Tytuł filmu *</label>
             <input
@@ -79,7 +77,6 @@
             >
           </div>
 
-          <!-- Rok produkcji -->
           <div class="input-group">
             <label class="input-label" for="movieYear">Rok produkcji *</label>
             <input
@@ -93,7 +90,6 @@
             >
           </div>
 
-          <!-- Czas trwania -->
           <div class="input-group">
             <label class="input-label" for="movieDuration">Czas trwania (min) *</label>
             <input
@@ -105,7 +101,6 @@
             >
           </div>
 
-          <!-- Reżyseria -->
           <div class="input-group">
             <label class="input-label" for="movieDirector">Reżyseria *</label>
             <input
@@ -117,7 +112,6 @@
             >
           </div>
 
-          <!-- Obsada -->
           <div class="input-group">
             <label class="input-label" for="movieCast">Obsada</label>
             <input
@@ -127,8 +121,6 @@
                     placeholder="Joaquin Phoenix, Robert De Niro"
             >
           </div>
-
-          <!-- Opis -->
           <div class="input-group form-grid-full">
             <label class="input-label" for="movieDescription">Opis *</label>
             <textarea
@@ -140,7 +132,6 @@
             ></textarea>
           </div>
 
-          <!-- Kategorie -->
           <div class="input-group form-grid-full">
             <label class="input-label">Kategorie</label>
             <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm);">
@@ -171,7 +162,6 @@
             </div>
           </div>
 
-          <!-- Platformy streamingowe -->
           <div class="input-group form-grid-full">
             <label class="input-label">Dostępne na platformach</label>
             <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm);">
@@ -193,7 +183,6 @@
             </div>
           </div>
 
-          <!-- Poster -->
           <div class="input-group form-grid-full">
             <label class="input-label" for="moviePoster">Poster filmu</label>
             <div class="file-input-wrapper">
@@ -206,7 +195,6 @@
           </div>
         </div>
 
-        <!-- Form Actions -->
         <div style="display: flex; gap: var(--spacing-sm); margin-top: var(--spacing-lg);">
           <button type="submit" class="btn btn-primary">
             Zapisz film
@@ -218,7 +206,6 @@
       </form>
     </div>
 
-    <!-- Movies Table -->
     <div class="admin-table-container">
       <table class="admin-table">
         <thead>
@@ -233,7 +220,7 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Movie 1 -->
+
         <tr>
           <td>
             <img src="assets/posters/123.jpg" alt="Joker" class="movie-thumbnail">
@@ -258,7 +245,6 @@
           </td>
         </tr>
 
-        <!-- Movie 2 -->
         <tr>
           <td>
             <img src="assets/posters/123.jpg" alt="Dune" class="movie-thumbnail">
@@ -283,7 +269,6 @@
           </td>
         </tr>
 
-        <!-- Movie 3 -->
         <tr>
           <td>
             <img src="assets/posters/123.jpg" alt="Oppenheimer" class="movie-thumbnail">
@@ -308,7 +293,6 @@
           </td>
         </tr>
 
-        <!-- Movie 4 -->
         <tr>
           <td>
             <img src="assets/posters/123.jpg" alt="Barbie" class="movie-thumbnail">
@@ -333,7 +317,6 @@
           </td>
         </tr>
 
-        <!-- Movie 5 -->
         <tr>
           <td>
             <img src="assets/posters/123.jpg" alt="Inception" class="movie-thumbnail">
@@ -358,7 +341,6 @@
           </td>
         </tr>
 
-        <!-- Movie 6 -->
         <tr>
           <td>
             <img src="assets/posters/123.jpg" alt="Parasite" class="movie-thumbnail">

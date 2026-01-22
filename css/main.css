@@ -7,23 +7,19 @@
 }
 
 body {
-    font-family: var(--font-primary);
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
     transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
-/* === CONTAINER === */
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 var(--spacing-md);
 }
 
-/* === HEADER === */
 .header {
-    background-color: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
     padding: var(--spacing-md) 0;
     position: sticky;
@@ -51,7 +47,6 @@ body {
 }
 
 .logo {
-    font-family: var(--font-heading);
     font-size: 2rem;
     font-weight: 700;
     color: var(--accent-primary);
@@ -65,8 +60,7 @@ body {
     color: var(--text-secondary);
     font-style: italic;
     line-height: 1;
-    padding-bottom: 0.2rem;
-    margin-top: 0.3rem;
+    margin-top: 0.5rem;
 }
 
 .header-right {
@@ -75,7 +69,6 @@ body {
     gap: var(--spacing-md);
 }
 
-/* === THEME TOGGLE === */
 .theme-toggle {
     position: relative;
     width: 60px;
@@ -106,7 +99,6 @@ body {
     transform: translateX(30px);
 }
 
-/* === SEARCH SECTION === */
 .search-section {
     padding: var(--spacing-xl) 0;
     padding-top: calc(var(--spacing-xl) * 1.5);
@@ -160,7 +152,7 @@ body {
 .category-filter {
     min-width: 200px;
     padding: var(--spacing-md) var(--spacing-lg);
-    padding-right: 3rem; /* Miejsce na strzałkę */
+    padding-right: 3rem;
     font-size: 1rem;
     background-color: var(--input-bg);
     border: 2px solid var(--border-color);
@@ -189,7 +181,6 @@ body {
     box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1);
 }
 
-/* Opcje w select */
 .category-filter option {
     background-color: var(--bg-secondary);
     color: var(--text-primary);
@@ -199,7 +190,6 @@ body {
     color: var(--text-muted);
 }
 
-/* === MOVIES GRID === */
 .movies-section {
     padding: var(--spacing-lg) 0;
 }
@@ -217,7 +207,6 @@ body {
     gap: var(--spacing-md);
 }
 
-/* === MOVIE CARD === */
 .movie-card {
     background-color: var(--card-bg);
     border-radius: var(--radius-md);
@@ -277,7 +266,6 @@ body {
     font-size: 1rem;
 }
 
-/* === FAVORITE BUTTON === */
 .favorite-btn {
     position: absolute;
     top: var(--spacing-xs);
@@ -308,7 +296,6 @@ body {
     color: #ffffff;
 }
 
-/* === LOADING STATE === */
 .loading {
     text-align: center;
     padding: var(--spacing-xl);
@@ -316,7 +303,6 @@ body {
     font-size: 1.125rem;
 }
 
-/* === EMPTY STATE === */
 .empty-state {
     text-align: center;
     padding: var(--spacing-xl);

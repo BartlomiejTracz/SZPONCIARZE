@@ -1,4 +1,4 @@
-// Toggle favorite
+// Toggle favorite TODO trzeba zrobić backend narazie tylko popkazuje ikonkę
 function toggleFavorite(button) {
     button.classList.toggle('active');
     const heartIcon = button.querySelector('.heart-icon');
@@ -9,7 +9,4 @@ function toggleFavorite(button) {
         heartIcon.textContent = '♡';
     }
 
-    // TODO: Zapisz do localStorage
-    // const movieId = button.dataset.movieId;
-    // saveFavorite(movieId);
 }

@@ -22,19 +22,19 @@
             </div>
 
             <div class="header-right">
-                <!-- Theme Toggle -->
+                <!-- Toggle do zmiany stylów TODO -->
                 <div class="theme-toggle" id="themeToggle">
                     <div class="theme-toggle-slider"></div>
                 </div>
 
-                <!-- Admin Link -->
+                <!-- Logowanie admina -->
                 <a href="admin-login.html" class="btn btn-secondary">Panel Admin</a>
             </div>
         </div>
     </div>
 </header>
 
-<!-- SEARCH SECTION -->
+<!-- Search -->
 <div class="search-container">
     <input
             type="text"
@@ -59,12 +59,13 @@
     </select>
 </div>
 
-<!-- MOVIES SECTION -->
+<!-- Movies -->
 <section class="movies-section">
   <div class="container">
     <h2 class="section-title">Popularne filmy</h2>
 
       <div class="movies-grid" id="moviesGrid">
+          <!-- baza danych połączenie -->
           <?php
           error_reporting(E_ALL);
           ini_set('display_errors', 1);
@@ -76,7 +77,6 @@
 
           echo "<!-- DEBUG: Połączenie z bazą OK -->";
 
-          // Pobierz filmy z bazy
           $query = "SELECT * FROM filmy ORDER BY rok_wydania DESC";
           $stmt = $db->query($query);
           $movies = $stmt->fetchAll();
@@ -85,7 +85,6 @@
 
           foreach ($movies as $movie):
               ?>
-              <!-- Movie Card -->
               <a href="movie.php?id=<?php echo $movie['id_filmu']; ?>"
                  class="movie-card"
                  data-categories="<?php echo htmlspecialchars($movie['gatunek']); ?>">
@@ -94,7 +93,6 @@
                               src="<?php echo !empty($movie['poster_url']) ? htmlspecialchars($movie['poster_url']) : 'assets/posters/123.jpg'; ?>"
                               alt="<?php echo htmlspecialchars($movie['nazwa']); ?>"
                               class="movie-poster"
-                              onerror="this.src='assets/posters/123.jpg'"
                       >
                       <button class="favorite-btn" onclick="event.preventDefault(); toggleFavorite(this, <?php echo $movie['id_filmu']; ?>)">
                           <span class="heart-icon">♡</span>

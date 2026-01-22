@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-<!-- HEADER -->
+
 <header class="header">
   <div class="container">
     <div class="header-content">
@@ -39,7 +39,6 @@
   </div>
 </header>
 
-<!-- ADMIN NAVIGATION -->
 <nav class="admin-nav">
   <div class="container" style="display: flex; gap: var(--spacing-sm);">
     <a href="admin-dashboard.html" class="admin-nav-link">Dashboard</a>
@@ -48,10 +47,8 @@
   </div>
 </nav>
 
-<!-- CATEGORIES MANAGEMENT -->
 <section class="admin-section">
   <div class="container">
-    <!-- Header with Add Button -->
     <div class="admin-header">
       <h2 class="admin-title">Zarządzanie kategoriami</h2>
       <button class="btn btn-primary" onclick="showAddCategoryForm()">
@@ -59,7 +56,6 @@
       </button>
     </div>
 
-    <!-- Add/Edit Category Form (hidden by default) -->
     <div class="admin-form" id="categoryForm" style="display: none; margin-bottom: var(--spacing-xl);">
       <h3 style="margin-bottom: var(--spacing-lg); font-family: var(--font-heading);" id="formTitle">
         Dodaj nową kategorię
@@ -67,7 +63,6 @@
 
       <form onsubmit="saveCategory(event)">
         <div class="form-grid">
-          <!-- Nazwa -->
           <div class="input-group">
             <label class="input-label" for="categoryName">Nazwa kategorii *</label>
             <input
@@ -79,7 +74,6 @@
             >
           </div>
 
-          <!-- Slug -->
           <div class="input-group">
             <label class="input-label" for="categorySlug">Slug (URL) *</label>
             <input
@@ -91,7 +85,6 @@
             >
           </div>
 
-          <!-- Ikona -->
           <div class="input-group">
             <label class="input-label" for="categoryIcon">Ikona (emoji)</label>
             <input
@@ -103,7 +96,6 @@
             >
           </div>
 
-          <!-- Kolor -->
           <div class="input-group">
             <label class="input-label" for="categoryColor">Kolor</label>
             <input
@@ -114,7 +106,6 @@
             >
           </div>
 
-          <!-- Opis -->
           <div class="input-group form-grid-full">
             <label class="input-label" for="categoryDescription">Opis</label>
             <textarea
@@ -126,7 +117,6 @@
           </div>
         </div>
 
-        <!-- Form Actions -->
         <div style="display: flex; gap: var(--spacing-sm); margin-top: var(--spacing-lg);">
           <button type="submit" class="btn btn-primary">
             Zapisz kategorię
@@ -138,9 +128,7 @@
       </form>
     </div>
 
-    <!-- Categories Grid -->
     <div class="categories-grid">
-      <!-- Category 1 -->
       <div class="category-card">
         <div class="category-header">
           <div class="category-icon">🎭</div>
@@ -164,7 +152,6 @@
         </div>
       </div>
 
-      <!-- Category 2 -->
       <div class="category-card">
         <div class="category-header">
           <div class="category-icon">😂</div>
@@ -180,15 +167,14 @@
         </div>
         <div class="category-actions">
           <button class="btn btn-secondary btn-sm" onclick="editCategory(2)">
-            ✏️ Edytuj
+            Edytuj
           </button>
           <button class="btn btn-secondary btn-sm" onclick="deleteCategory(2)">
-            🗑️ Usuń
+            Usuń
           </button>
         </div>
       </div>
 
-      <!-- Category 3 -->
       <div class="category-card">
         <div class="category-header">
           <div class="category-icon">🕵️</div>
@@ -212,7 +198,6 @@
         </div>
       </div>
 
-      <!-- Category 4 -->
       <div class="category-card">
         <div class="category-header">
           <div class="category-icon">😱</div>
@@ -236,7 +221,6 @@
         </div>
       </div>
 
-      <!-- Category 5 -->
       <div class="category-card">
         <div class="category-header">
           <div class="category-icon">🚀</div>
@@ -260,7 +244,6 @@
         </div>
       </div>
 
-      <!-- Category 6 -->
       <div class="category-card">
         <div class="category-header">
           <div class="category-icon">💥</div>
@@ -284,7 +267,6 @@
         </div>
       </div>
 
-      <!-- Category 7 -->
       <div class="category-card">
         <div class="category-header">
           <div class="category-icon">❤️</div>
@@ -308,7 +290,6 @@
         </div>
       </div>
 
-      <!-- Category 8 -->
       <div class="category-card">
         <div class="category-header">
           <div class="category-icon">🎨</div>
@@ -332,7 +313,6 @@
         </div>
       </div>
 
-      <!-- Category 9 -->
       <div class="category-card">
         <div class="category-header">
           <div class="category-icon">🏆</div>

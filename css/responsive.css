@@ -1,4 +1,4 @@
-/* === TABLET === */
+/* === Nic tu prawie nie zrobiłem TODO === */
 @media (max-width: 1024px) {
     .movies-grid {
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -9,7 +9,6 @@
     }
 }
 
-/* === MOBILE === */
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;

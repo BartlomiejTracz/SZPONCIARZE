@@ -1,5 +1,5 @@
 :root {
-    /* === DARK THEME (default) === */
+    /* === DARK THEME (nasz default) === */
     --bg-primary: #141414;
     --bg-secondary: #1f1f1f;
     --bg-tertiary: #2a2a2a;
@@ -47,7 +47,7 @@
     --transition-normal: 0.3s ease;
 }
 
-/* === LIGHT THEME === */
+/* === LIGHT THEME TODO to jest do tego przełącznika=== */
 [data-theme="light"] {
     --bg-primary: #ffffff;
     --bg-secondary: #f5f5f5;
