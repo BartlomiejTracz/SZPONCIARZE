@@ -29,6 +29,7 @@ if (!empty($ids_raw)) {
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 <header class="header">
@@ -36,6 +37,14 @@ if (!empty($ids_raw)) {
         <div class="header-content">
             <a href="index.php" class="logo">Plusflix</a>
             <div class="header-right">
+                <button id="contrastToggle" class="btn btn-secondary btn-sm" title="Tryb wysokiego kontrastu">
+                    Kontrast
+                </button>
+
+                <div class="theme-toggle" id="themeToggle">
+                    <div class="theme-toggle-slider"></div>
+                </div>
+
                 <a href="index.php" class="btn btn-primary btn-sm">Powrót</a>
             </div>
         </div>
@@ -73,6 +82,7 @@ if (!empty($ids_raw)) {
     </div>
 </section>
 
+<script src="js/theme-switcher.js"></script>
 <script src="js/favorites.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
