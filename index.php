@@ -14,8 +14,7 @@ require_once 'config/database.php';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Szpontowe Seanse - Znajdź swój film</title>
-
+  <title>Plusflix</title>
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/components.css">
@@ -27,12 +26,15 @@ require_once 'config/database.php';
     <div class="container">
         <div class="header-content">
             <div class="header-logo-wrapper">
-                <a href="index.php" class="logo">Szpontowe Seanse</a>
-                <span class="slogan">Twoje filmy, wszędzie</span>
+                <a href="index.php" class="logo">Plusflix</a>
             </div>
 
             <div class="header-right">
-                <!-- Toggle do zmiany stylów TODO -->
+
+                <button id="contrastToggle" class="btn btn-secondary btn-sm" title="Tryb wysokiego kontrastu">
+                    Kontrast
+                </button>
+
                 <div class="theme-toggle" id="themeToggle">
                     <div class="theme-toggle-slider"></div>
                 </div>
@@ -50,6 +52,8 @@ require_once 'config/database.php';
 
 <!-- Search -->
 <div class="search-container">
+    <span class="slogan">Wszystkie filmy w jednym miejscu</span>
+
     <input
             type="text"
             class="search-input"

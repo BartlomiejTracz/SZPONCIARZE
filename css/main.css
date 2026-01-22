@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap');
 
+/* Upewnij się, że te zmienne istnieją, jeśli nie - zdefiniuj je tutaj */
+:root {
+    --font-primary: 'Inter', sans-serif;
+    --font-heading: 'Poppins', sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* To wymusi dziedziczenie czcionki przez wszystkie elementy, w tym inputy i buttony */
+    font-family: inherit;
 }
 
 body {
+    font-family: var(--font-primary); /* Główna czcionka dla strony */
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
@@ -44,6 +53,7 @@ body {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
+    line-height: 1;
 }
 
 .logo {
@@ -52,15 +62,31 @@ body {
     color: var(--accent-primary);
     text-decoration: none;
     letter-spacing: -1px;
+    display: inline-block;
     line-height: 1;
 }
 
+.header-logo-wrapper .slogan {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-bottom: 0;
+    font-weight: 500;
+    font-style: normal;
+    text-transform: none;
+    white-space: nowrap;
+    transform: translateY(1px);
+}
+
 .slogan {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    font-style: italic;
-    line-height: 1;
-    margin-top: 0.5rem;
+    flex: 0 0 100%;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: normal;
+    opacity: 0.25;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-primary);
+    font-family: var(--font-heading);
 }
 
 .header-right {
@@ -124,7 +150,9 @@ body {
     margin: 0 auto;
     position: relative;
     display: flex;
+    flex-wrap: wrap; /* Pozwala elementom przejść do nowej linii */
     gap: var(--spacing-md);
+    justify-content: center; /* Centruje inputy */
     align-items: stretch;
 }
 

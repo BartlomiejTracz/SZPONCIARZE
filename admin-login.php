@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Administratora - Szpontowe Seanse</title>
+  <title>Panel Administratora - Plusflix</title>
 
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/main.css">
@@ -45,11 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="container">
     <div class="header-content">
       <div class="header-logo-wrapper">
-        <a href="index.php" class="logo">Szpontowe Seanse</a>
-        <span class="slogan">Twoje filmy, wszędzie</span>
+        <a href="index.php" class="logo">Plusflix</a>
       </div>
 
       <div class="header-right">
+
+          <button id="contrastToggle" class="btn btn-secondary btn-sm" title="Tryb wysokiego kontrastu">
+              Kontrast
+          </button>
+
         <div class="theme-toggle" id="themeToggle">
           <div class="theme-toggle-slider"></div>
         </div>

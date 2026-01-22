@@ -344,3 +344,95 @@
 .reviews-empty p {
     font-size: 1.125rem;
 }
+
+/* === TRYB KONTRASTU === */
+
+[data-theme="contrast"] .badge-primary,
+[data-theme="contrast"] .platform-badge {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff;
+    font-weight: 700;
+    opacity: 1 !important;
+}
+
+[data-theme="contrast"] .movie-description h3,
+[data-theme="contrast"] .streaming-platforms h3,
+[data-theme="contrast"] .section-title {
+    color: #FFFF00;
+    border-bottom: 2px solid #FFFF00;
+    padding-bottom: 5px;
+}
+
+/* Gwiazdki statyczne (średnia ocena) */
+[data-theme="contrast"] .star-icon,
+[data-theme="contrast"] .rating-value {
+    color: #FFFF00 !important;
+}
+
+/* Interaktywne gwiazdki do oceny */
+[data-theme="contrast"] .rating-star {
+    color: #ffffff !important; /* Bazowo białe */
+    transition: color 0.2s ease;
+}
+
+/* Logika podświetlania identyczna jak w Dark Mode */
+[data-theme="contrast"] .rating-stars-inline:hover .rating-star {
+    color: #FFFF00 !important;
+}
+
+[data-theme="contrast"] .rating-star:hover ~ .rating-star {
+    color: #ffffff !important; /* Wygaszanie tych po prawej */
+}
+
+/* Stan po kliknięciu */
+[data-theme="contrast"] .rating-star.active {
+    color: #FFFF00 !important;
+}
+
+/* Przycisk recenzji */
+[data-theme="contrast"] .add-review-box .btn-primary {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+[data-theme="contrast"] .add-review-box .btn-primary:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #FFFF00;
+}
+
+/* Pole tekstowe recenzji */
+[data-theme="contrast"] .review-textarea {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border: 2px solid #FFFF00 !important;
+}
+
+[data-theme="contrast"] .review-textarea::placeholder {
+    color: rgba(255, 255, 0, 0.7);
+}
+
+/* Karta recenzji w kontraście */
+[data-theme="contrast"] .review-card {
+    border: 2px solid #FFFF00;
+    background-color: #000000;
+}
+
+[data-theme="contrast"] .author-name,
+[data-theme="contrast"] .review-content {
+    color: #ffffff;
+}
+
+[data-theme="contrast"] .review-rating {
+    color: #FFFF00;
+}
+
+[data-theme="contrast"] .delete-review {
+    background-color: #ff0000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff;
+}

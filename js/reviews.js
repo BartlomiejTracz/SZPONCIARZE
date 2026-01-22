@@ -1,59 +1,95 @@
 // Add Review
+let currentRating = 0;
+
+// Obsługa wybierania gwiazdek
+document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('.rating-star');
+
+    stars.forEach(star => {
+        star.addEventListener('click', function() {
+            currentRating = this.getAttribute('data-rating');
+
+            // Wizualne zaznaczenie gwiazdek
+            stars.forEach(s => {
+                if (parseInt(s.getAttribute('data-rating')) <= currentRating) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+
+            const msg = document.getElementById('ratingMessage');
+            if(msg) msg.innerText = "Twoja ocena: " + currentRating + "/5";
+        });
+    });
+});
+
+// Funkcja wysyłająca recenzję
 function addReview() {
     const textarea = document.getElementById('reviewTextarea');
-    const reviewText = textarea.value.trim();
+    const movieId = new URLSearchParams(window.location.search).get('id');
 
-    if (reviewText === '') {
-        alert('Napisz swoją recenzję!');
+    if (currentRating === 0) {
+        alert("Proszę najpierw ocenić film gwiazdkami!");
         return;
     }
 
-    console.log('Nowa recenzja:', reviewText, 'Ocena:', selectedRating);
-
-    const reviewsList = document.getElementById('reviewsList');
-
-    const emptyState = reviewsList.querySelector('.reviews-empty');
-    if (emptyState) {
-        emptyState.remove();
+    if (textarea.value.trim().length < 3) {
+        alert("Treść recenzji jest za krótka!");
+        return;
     }
 
-    const newReview = createReviewCard('Ty', 'Teraz', reviewText, 0, selectedRating); // ✅ ZMIENIONE: Dodano selectedRating
-    reviewsList.insertAdjacentHTML('afterbegin', newReview);
+    const formData = new FormData();
+    formData.append('id_filmu', movieId);
+    formData.append('ocena', currentRating);
+    formData.append('tresc', textarea.value);
 
-    textarea.value = '';
-
-    selectedRating = 0;
-    highlightStars(0);
-    if (ratingMessage) {
-        ratingMessage.textContent = '';
-    }
-
-    alert('Recenzja została dodana!');
+    fetch('add-review.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert(data.message);
+                location.reload(); // Odświeżamy, aby pokazać nową recenzję
+            } else {
+                alert("Błąd: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Wystąpił błąd podczas wysyłania.");
+        });
 }
 
 // Delete Review
-function deleteReview(button) {
-    if (confirm('Czy na pewno chcesz usunąć tę recenzję?')) {
-        const reviewCard = button.closest('.review-card');
-        reviewCard.style.opacity = '0';
-        reviewCard.style.transform = 'translateX(-20px)';
-
-        setTimeout(() => {
-            reviewCard.remove();
-            const reviewsList = document.getElementById('reviewsList');
-            if (reviewsList.children.length === 0) {
-                reviewsList.innerHTML = `
-                    <div class="reviews-empty">
-                        <div class="reviews-empty-icon">💬</div>
-                        <p>Brak recenzji. Bądź pierwszą osobą, która doda recenzję!</p>
-                    </div>
-                `;
-            }
-        }, 300);
-
-        // TODO: Wysłać żądanie usunięcia do backendu
-        console.log('Recenzja usunięta');
+function deleteReview(idRecenzji, idFilmu) {
+    if (!confirm('Czy na pewno chcesz trwale usunąć tę recenzję?')) {
+        return;
     }
+
+    const formData = new FormData();
+    formData.append('id_recenzji', idRecenzji);
+    formData.append('id_filmu', idFilmu);
+
+    fetch('delete-review.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Animacja zniknięcia elementu z listy przed odświeżeniem
+                location.reload();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Wystąpił błąd podczas usuwania.');
+        });
 }
 
 // Create Review
@@ -144,3 +180,20 @@ function highlightStars(count) {
         }
     });
 }
+
+document.querySelectorAll('.rating-star').forEach(star => {
+    star.addEventListener('click', function() {
+        const rating = this.getAttribute('data-rating');
+        const allStars = document.querySelectorAll('.rating-star');
+
+        allStars.forEach(s => {
+            if (s.getAttribute('data-rating') <= rating) {
+                s.classList.add('active');
+            } else {
+                s.classList.remove('active');
+            }
+        });
+
+        document.getElementById('ratingMessage').innerText = `Wybrano ocenę: ${rating}/5`;
+    });
+});

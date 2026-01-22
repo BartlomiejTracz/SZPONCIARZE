@@ -406,3 +406,36 @@ input[type="color"].input {
     padding: 4px;
     cursor: pointer;
 }
+
+[data-theme="contrast"] .btn-primary {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff;
+    font-weight: 800;
+}
+
+[data-theme="contrast"] .btn-primary:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #FFFF00;
+}
+
+[data-theme="contrast"] .input {
+    background-color: #000000;
+    border: 2px solid #FFFF00;
+    color: #FFFF00;
+}
+
+[data-theme="contrast"] .input::placeholder {
+    color: rgba(255, 255, 0, 0.5);
+}
+
+[data-theme="contrast"] .admin-form .input {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border: 2px solid #FFFF00 !important;
+}
+
+[data-theme="contrast"] #formTitle {
+    color: #FFFF00;
+}

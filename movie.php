@@ -63,11 +63,15 @@ $actors_string = implode(', ', $actors_list);
     <div class="container">
         <div class="header-content">
             <div class="header-logo-wrapper">
-                <a href="index.php" class="logo">Szpontowe Seanse</a>
-                <span class="slogan">Twoje filmy, wszędzie</span>
+                <a href="index.php" class="logo">Plusflix</a>
             </div>
 
             <div class="header-right">
+
+                <button id="contrastToggle" class="btn btn-secondary btn-sm" title="Tryb wysokiego kontrastu">
+                    Kontrast
+                </button>
+
                 <div class="theme-toggle" id="themeToggle">
                     <div class="theme-toggle-slider"></div>
                 </div>
@@ -197,9 +201,9 @@ $actors_string = implode(', ', $actors_list);
                     <div class="review-card">
                         <div class="review-header">
                             <div class="review-author">
-                                <div class="author-avatar">U</div>
+                                <div class="author-avatar">G</div>
                                 <div>
-                                    <div class="author-name">Użytkownik</div>
+                                    <div class="author-name">Gość</div>
                                     <div class="review-date">
                                         <?php
                                         $date = new DateTime($review['data_dodania']);
@@ -217,10 +221,13 @@ $actors_string = implode(', ', $actors_list);
                             <?php echo nl2br(htmlspecialchars($review['tresc_recenzji'])); ?>
                         </div>
                         <div class="review-actions">
-                            <button class="review-action-btn">Pomocne (0)</button>
-                            <button class="review-action-btn delete-review" onclick="deleteReview(<?php echo $review['id_recenzji']; ?>)" title="Usuń recenzję (tylko administrator)">
-                                 Usuń
-                            </button>
+                            <?php if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true): ?>
+                                <button class="review-action-btn delete-review"
+                                        onclick="deleteReview(<?php echo $review['id_recenzji']; ?>, <?php echo $movie['id_filmu']; ?>)"
+                                        title="Usuń recenzję">
+                                    Usuń
+                                </button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>

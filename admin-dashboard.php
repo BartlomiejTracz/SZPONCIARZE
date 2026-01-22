@@ -57,11 +57,16 @@ $recent_movies = $stmt->fetchAll();
     <div class="container">
         <div class="header-content">
             <div class="header-logo-wrapper">
-                <a href="index.php" class="logo">Szpontowe Seanse</a>
+                <a href="index.php" class="logo">Plusflix</a>
                 <span class="slogan">Panel Administratora</span>
             </div>
 
             <div class="header-right">
+
+                <button id="contrastToggle" class="btn btn-secondary btn-sm" title="Tryb wysokiego kontrastu">
+                    Kontrast
+                </button>
+
                 <div class="theme-toggle" id="themeToggle">
                     <div class="theme-toggle-slider"></div>
                 </div>

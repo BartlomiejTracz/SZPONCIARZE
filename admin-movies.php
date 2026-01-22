@@ -36,11 +36,16 @@ $movies = $stmt->fetchAll();
     <div class="container">
         <div class="header-content">
             <div class="header-logo-wrapper">
-                <a href="index.php" class="logo">Szpontowe Seanse</a>
+                <a href="index.php" class="logo">Plusflix</a>
                 <span class="slogan">Panel Administratora</span>
             </div>
 
             <div class="header-right">
+
+                <button id="contrastToggle" class="btn btn-secondary btn-sm" title="Tryb wysokiego kontrastu">
+                    Kontrast
+                </button>
+
                 <div class="theme-toggle" id="themeToggle">
                     <div class="theme-toggle-slider"></div>
                 </div>
@@ -215,11 +220,13 @@ $movies = $stmt->fetchAll();
                             </small>
                         </td>
                         <td><?php echo $movie['rok_wydania']; ?></td>
-                        <td><?php echo htmlspecialchars($movie['rezyser']); ?></td>
+                        <td><?php echo htmlspecialchars($movie['rezyser'] ?? ''); ?></td>
                         <td>⭐ <?php echo number_format($movie['srednia_ocena'], 1); ?></td>
                         <td>
                             <div class="table-actions">
-                                <button class="btn btn-secondary btn-icon-only" onclick="editMovie(<?php echo $movie['id_filmu']; ?>)" title="Edytuj">
+                                <button class="btn btn-secondary btn-icon-only"
+                                        onclick='editMovie(<?php echo json_encode($movie); ?>)'
+                                        title="Edytuj">
                                     ✏️
                                 </button>
                                 <a href="admin-movie-delete.php?id=<?php echo $movie['id_filmu']; ?>"
