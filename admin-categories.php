@@ -107,6 +107,7 @@ $categories = $stmt->fetchAll();
         .search-full-width {
             width: 100%;
             padding: 12px;
+            margin-bottom: 32px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             color: var(--text-primary);
@@ -164,12 +165,10 @@ $categories = $stmt->fetchAll();
             </form>
         </div>
 
-        <div class="search-container" style="margin-bottom: 1rem; width: 100%;">
             <input type="text"
                    id="categorySearchInput"
                    class="search-input search-full-width"
-                   placeholder="Wpisz nazwę kategorii aby wyszukać...">
-        </div>
+                   placeholder="Wpisz nazwę kategorii aby wyszukać..."/>
 
         <div class="admin-table-container">
             <table class="categories-table">
