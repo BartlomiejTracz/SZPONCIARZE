@@ -436,3 +436,14 @@
     color: #ffffff !important;
     border: 2px solid #ffffff;
 }
+
+[data-theme="contrast"] .favorite-btn,
+[data-theme="contrast"] .favorite-btn-large {
+    border: 2px solid #FFFF00 !important;
+    color: #FFFF00 !important;
+}
+
+[data-theme="contrast"] .favorite-btn-large.active {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+}

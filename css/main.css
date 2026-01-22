@@ -342,3 +342,59 @@ body {
     margin-bottom: var(--spacing-md);
     opacity: 0.3;
 }
+
+.favorite-btn.active .heart-icon,
+.favorite-btn-large.active .heart-icon {
+    color: #e50914;
+}
+
+[data-theme="contrast"] .favorite-btn.active .heart-icon {
+    color: #FFFF00 !important;
+}
+
+.search-actions-bar {
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+
+.actions-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.favorites-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all var(--transition-fast);
+}
+
+.favorites-link:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.heart-icon-static {
+    font-size: 1.1rem;
+}
+
+[data-theme="contrast"] .favorites-link {
+    background-color: #000000;
+    border: 2px solid #FFFF00;
+    color: #FFFF00;
+}
+
+[data-theme="contrast"] .favorites-link:hover {
+    background-color: #FFFF00;
+    color: #000000;
+}

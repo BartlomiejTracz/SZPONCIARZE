@@ -77,6 +77,17 @@ require_once 'config/database.php';
     </select>
 </div>
 
+<div class="search-actions-bar">
+    <div class="container">
+        <div class="actions-wrapper">
+            <a href="favorites.php" class="favorites-link">
+                <span class="heart-icon-static">❤️</span>
+                Moje Ulubione
+            </a>
+        </div>
+    </div>
+</div>
+
 <!-- Movies -->
 <section class="movies-section">
   <div class="container">
