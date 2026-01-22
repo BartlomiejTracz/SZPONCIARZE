@@ -5,17 +5,15 @@ require_once 'config/database.php';
 $database = new Database();
 $db = $database->connect();
 
-// Pobieramy ID z adresu URL (np. favorites.php?ids=1,2,3)
 $ids_raw = isset($_GET['ids']) ? $_GET['ids'] : '';
 $movies = [];
 
 if (!empty($ids_raw)) {
     $ids_array = explode(',', $ids_raw);
-    $ids_array = array_map('intval', $ids_array); // Zabezpieczenie przed SQL Injection
+    $ids_array = array_map('intval', $ids_array);
 
     if (!empty($ids_array)) {
         $placeholders = implode(',', array_fill(0, count($ids_array), '?'));
-        // Sprawdź czy tabela to filmy czy Filmy - używamy Filmy zgodnie z movie.php
         $query = "SELECT * FROM Filmy WHERE id_filmu IN ($placeholders)";
         $stmt = $db->prepare($query);
         $stmt->execute($ids_array);
@@ -77,7 +75,6 @@ if (!empty($ids_raw)) {
 
 <script src="js/favorites.js"></script>
 <script>
-    // Magia: Jeśli w URL nie ma parametrów, pobierz je z LocalStorage i przeładuj stronę
     document.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
         if (!urlParams.has('ids')) {
@@ -94,7 +91,6 @@ if (!empty($ids_raw)) {
         let favs = JSON.parse(localStorage.getItem('plusflix_favorites') || '[]');
         favs = favs.filter(f => f !== id);
         localStorage.setItem('plusflix_favorites', JSON.stringify(favs));
-        // Przeładuj stronę z nową listą ID
         window.location.href = 'favorites.php?ids=' + favs.join(',');
     }
 </script>

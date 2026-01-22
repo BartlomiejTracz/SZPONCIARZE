@@ -2,7 +2,6 @@
 session_start();
 $redirect_to = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
 
-// Jeśli wylogowuje się z panelu admina, przekieruj do logowania
 $admin_pages = ['admin-dashboard.php', 'admin-movies.php', 'admin-categories.php'];
 $is_admin_page = false;
 

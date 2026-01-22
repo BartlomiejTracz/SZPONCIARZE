@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Sprawdź czy admin jest zalogowany
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header('Location: admin-login.php');
     exit;
@@ -12,7 +11,6 @@ require_once 'config/database.php';
 $database = new Database();
 $db = $database->connect();
 
-//pobiera filmy z bazy
 $query = "SELECT * FROM Filmy ORDER BY rok_wydania DESC";
 $stmt = $db->query($query);
 $movies = $stmt->fetchAll();
@@ -79,7 +77,6 @@ $movies = $stmt->fetchAll();
                 + Dodaj nowy film
             </button>
         </div>
-        <!-- Wyszukiwarka -->
         <div class="search-container" style="max-width: 600px; margin-bottom: var(--spacing-xl);">
             <input
                     type="text"
@@ -88,7 +85,6 @@ $movies = $stmt->fetchAll();
                     placeholder="Wpisz tytuł filmu..."
             >
         </div>
-        <!-- Formularz dodawania/edycji filmu -->
         <div class="admin-form" id="movieForm" style="display: none; margin-bottom: var(--spacing-xl);">
             <h3 style="margin-bottom: var(--spacing-lg); font-family: var(--font-heading);" id="formTitle">
                 Dodaj nowy film
@@ -189,7 +185,6 @@ $movies = $stmt->fetchAll();
             </form>
         </div>
 
-        <!-- Tabela z filmami -->
         <div class="admin-table-container">
             <table class="admin-table">
                 <thead>
@@ -248,7 +243,6 @@ $movies = $stmt->fetchAll();
 <script src="js/theme-switcher.js"></script>
 <script src="js/admin-movies.js"></script>
 <script>
-    // Wyszukiwarka filmów - tylko po tytule (jak na stronie głównej)
     const adminSearchInput = document.getElementById('adminSearchInput');
 
     if (adminSearchInput) {

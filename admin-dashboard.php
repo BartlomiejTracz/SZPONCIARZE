@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Sprawdź czy admin jest zalogowany
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header('Location: admin-login.php');
     exit;
@@ -12,25 +11,20 @@ require_once 'config/database.php';
 $database = new Database();
 $db = $database->connect();
 
-// Pobierz statystyki
 $stats = [];
 
-// Liczba filmów
 $query = "SELECT COUNT(*) as total FROM Filmy";
 $stmt = $db->query($query);
 $stats['movies'] = $stmt->fetch()['total'];
 
-// Liczba recenzji
 $query = "SELECT COUNT(*) as total FROM Recenzje";
 $stmt = $db->query($query);
 $stats['reviews'] = $stmt->fetch()['total'];
 
-// Liczba unikalnych gatunków
 $query = "SELECT COUNT(DISTINCT gatunek) as total FROM Filmy";
 $stmt = $db->query($query);
 $stats['categories'] = $stmt->fetch()['total'];
 
-// Ostatnio dodane filmy (top 5)
 $query = "SELECT f.*, COUNT(r.id_recenzji) as review_count 
           FROM Filmy f 
           LEFT JOIN Recenzje r ON f.id_filmu = r.id_filmu 
@@ -94,7 +88,6 @@ $recent_movies = $stmt->fetchAll();
 
 <section class="admin-section">
     <div class="container">
-        <!-- Statystyki -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-label">Wszystkie filmy</div>
@@ -135,7 +128,6 @@ $recent_movies = $stmt->fetchAll();
             </a>
         </div>
 
-        <!-- Tabela ostatnich filmów -->
         <div class="admin-table-container">
             <table class="admin-table">
                 <thead>

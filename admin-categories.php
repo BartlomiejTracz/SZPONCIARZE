@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Sprawdź czy admin jest zalogowany
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header('Location: admin-login.php');
     exit;
@@ -12,12 +11,10 @@ require_once 'config/database.php';
 $database = new Database();
 $db = $database->connect();
 
-// Pobierz unikalne gatunki z licznikiem filmów
 $query = "SELECT gatunek, COUNT(*) as count FROM Filmy GROUP BY gatunek ORDER BY count DESC";
 $stmt = $db->query($query);
 $categories_raw = $stmt->fetchAll();
 
-// Przetwórz kategorie (rozdziel te z ukośnikiem)
 $categories = [];
 foreach ($categories_raw as $cat) {
 $genres = explode('/', $cat['gatunek']);
@@ -30,7 +27,6 @@ $categories[$genre] += $cat['count'];
 }
 }
 
-// Mapowanie emoji dla kategorii
 $category_icons = [
 'Dramat' => '🎭',
 'Komedia' => '😂',

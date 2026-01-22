@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // 1. Dodaj recenzję do tabeli Recenzje
         $query = "INSERT INTO Recenzje (id_filmu, ocena_gwiazdki, tresc_recenzji, data_dodania) 
                   VALUES (:id_filmu, :ocena, :tresc, datetime('now'))";
         $stmt = $db->prepare($query);
@@ -28,14 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':tresc' => $tresc
         ]);
 
-        // 2. Przelicz średnią ocenę dla filmu
         $avg_query = "SELECT AVG(ocena_gwiazdki) as srednia FROM Recenzje WHERE id_filmu = :id_filmu";
         $avg_stmt = $db->prepare($avg_query);
         $avg_stmt->execute([':id_filmu' => $id_filmu]);
         $avg_result = $avg_stmt->fetch();
         $nowa_srednia = $avg_result['srednia'] ? round($avg_result['srednia'], 2) : 0;
 
-        // 3. Zaktualizuj tabelę Filmy
         $update_query = "UPDATE Filmy SET srednia_ocena = :srednia WHERE id_filmu = :id_filmu";
         $update_stmt = $db->prepare($update_query);
         $update_stmt->execute([

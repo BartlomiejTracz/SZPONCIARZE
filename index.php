@@ -94,7 +94,6 @@ require_once 'config/database.php';
     <h2 class="section-title">Popularne filmy</h2>
 
       <div class="movies-grid" id="moviesGrid">
-          <!-- baza danych połączenie -->
           <?php
           error_reporting(E_ALL);
           ini_set('display_errors', 1);
