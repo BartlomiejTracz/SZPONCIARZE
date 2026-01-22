@@ -3,7 +3,7 @@ session_start();
 require_once 'config/database.php';
 
 header('Content-Type: application/json');
-
+//Test commita
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $database = new Database();
