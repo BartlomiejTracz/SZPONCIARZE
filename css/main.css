@@ -125,6 +125,32 @@ body {
     transform: translateX(30px);
 }
 
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.user-name {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+
 .search-section {
     padding: var(--spacing-xl) 0;
     padding-top: calc(var(--spacing-xl) * 1.5);

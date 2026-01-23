@@ -128,7 +128,7 @@ $categories = $stmt->fetchAll();
             <div class="header-right">
                 <button id="contrastToggle" class="btn btn-secondary btn-sm">Kontrast</button>
                 <div class="theme-toggle" id="themeToggle"><div class="theme-toggle-slider"></div></div>
-                <div class="user-info"><div class="user-avatar">AD</div><span class="user-name">Admin</span></div>
+                <div class="user-info"><div class="user-avatar" id="userAvatar">AD</div><span class="user-name" id="userName">Admin</span><input type="file" id="avatarInput" accept="image/*" hidden></div>
                 <a href="admin-logout.php" class="btn btn-secondary btn-sm">Wyloguj</a>
             </div>
         </div>
@@ -201,7 +201,7 @@ $categories = $stmt->fetchAll();
 </section>
 
 <script src="js/theme-switcher.js"></script>
-
+<script src="js/admin-user-info.js"></script>
 <script>
     // --- WYSZUKIWARKA JS (Skopiowana i dostosowana z dashboardu) ---
     const searchInput = document.getElementById('categorySearchInput');

@@ -79,31 +79,7 @@
     gap: var(--spacing-sm);
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-}
 
-.user-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-dark));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 0.75rem;
-}
-
-.user-name {
-    color: var(--text-primary);
-    font-weight: 500;
-    font-size: 0.875rem;
-    white-space: nowrap;
-}
 
 .admin-nav {
     display: flex;

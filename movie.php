@@ -77,6 +77,7 @@ $actors_string = implode(', ', $actors_list);
                 </div>
 
                 <?php if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true): ?>
+                    <div class="user-info"><div class="user-avatar" id="userAvatar">AD</div><span class="user-name" id="userName">Admin</span><input type="file" id="avatarInput" accept="image/*" hidden></div>
                     <a href="admin-dashboard.php" class="btn btn-secondary btn-sm">Panel Admina</a>
                 <?php else: ?>
                     <a href="admin-login.php" class="btn btn-secondary btn-sm">Zaloguj</a>
@@ -244,6 +245,7 @@ $actors_string = implode(', ', $actors_list);
 <script src="js/theme-switcher.js"></script>
 <script src="js/favorites.js"></script>
 <script src="js/reviews.js"></script>
+<script src="js/admin-user-info.js"></script>
 <script>
     <?php if (!empty($logout_message)): ?>
     alert('✅ <?php echo addslashes($logout_message); ?>');

@@ -76,3 +76,4 @@ if (categoryNameInput && categorySlugInput) {
         categorySlugInput.value = slug;
     });
 }
+
