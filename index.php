@@ -26,7 +26,19 @@ try {
 }
 
 // 2. POBIERANIE FILMÓW
-$query = "SELECT * FROM filmy ORDER BY rok_wydania DESC";
+$query = "
+SELECT
+    f.*,
+    LOWER(f.platforma) AS platforma,
+    LOWER(
+        GROUP_CONCAT(DISTINCT a.imie || ' ' || a.nazwisko)
+    ) AS aktorzy
+FROM Filmy f
+LEFT JOIN Film_Aktor fa ON fa.id_filmu = f.id_filmu
+LEFT JOIN Aktorzy a ON a.id_aktora = fa.id_aktora
+GROUP BY f.id_filmu
+ORDER BY f.rok_wydania DESC
+";
 $stmt = $db->query($query);
 $movies = $stmt->fetchAll();
 ?>
@@ -122,7 +134,11 @@ $movies = $stmt->fetchAll();
             <?php foreach ($movies as $movie): ?>
                 <a href="movie.php?id=<?php echo $movie['id_filmu']; ?>"
                    class="movie-card"
-                   data-categories="<?php echo htmlspecialchars($movie['gatunek']); ?>">
+                   data-categories="<?php echo htmlspecialchars(strtolower($movie['gatunek'])); ?>"
+                   data-director="<?php echo htmlspecialchars(strtolower($movie['rezyser'] ?? '')); ?>"
+                   data-year="<?php echo $movie['rok_wydania']; ?>"
+                   data-actors="<?php echo htmlspecialchars(strtolower($movie['aktorzy'] ?? '')); ?>"
+                   data-platforms="<?php echo htmlspecialchars(strtolower($movie['platforma'] ?? '')); ?>">
                     <div style="position: relative;">
                         <img
                                 src="<?php echo !empty($movie['poster_url']) ? htmlspecialchars($movie['poster_url']) : 'assets/posters/123.jpg'; ?>"

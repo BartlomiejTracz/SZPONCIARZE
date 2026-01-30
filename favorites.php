@@ -5,15 +5,15 @@ require_once 'config/database.php';
 $database = new Database();
 $db = $database->connect();
 
-$ids_raw = isset($_GET['ids']) ? $_GET['ids'] : '';
 $movies = [];
 
-if (!empty($ids_raw)) {
-    $ids_array = explode(',', $ids_raw);
-    $ids_array = array_map('intval', $ids_array);
+if (isset($_COOKIE['plusflix_favorites'])) {
+    $ids_array = json_decode($_COOKIE['plusflix_favorites'], true);
 
-    if (!empty($ids_array)) {
+    if (is_array($ids_array) && !empty($ids_array)) {
+        $ids_array = array_map('intval', $ids_array);
         $placeholders = implode(',', array_fill(0, count($ids_array), '?'));
+
         $query = "SELECT * FROM Filmy WHERE id_filmu IN ($placeholders)";
         $stmt = $db->prepare($query);
         $stmt->execute($ids_array);
@@ -85,24 +85,55 @@ if (!empty($ids_raw)) {
 <script src="js/theme-switcher.js"></script>
 <script src="js/favorites.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (!urlParams.has('ids')) {
-            const favs = JSON.parse(localStorage.getItem('plusflix_favorites') || '[]');
-            if (favs.length > 0) {
-                window.location.href = 'favorites.php?ids=' + favs.join(',');
-            } else {
-                document.getElementById('emptyMsg').innerHTML = "<p>Nie masz żadnych ulubionych filmów. ❤️</p>";
+    function getCookie(name) {
+        const cookies = document.cookie.split(';');
+        for (let c of cookies) {
+            c = c.trim();
+            if (c.startsWith(name + '=')) {
+                return decodeURIComponent(c.substring(name.length + 1));
             }
         }
-    });
-
-    function removeFromFavs(id) {
-        let favs = JSON.parse(localStorage.getItem('plusflix_favorites') || '[]');
-        favs = favs.filter(f => f !== id);
-        localStorage.setItem('plusflix_favorites', JSON.stringify(favs));
-        window.location.href = 'favorites.php?ids=' + favs.join(',');
+        return null;
     }
+
+    function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        document.cookie = `${name}=${encodeURIComponent(value)};expires=${date.toUTCString()};path=/`;
+    }
+
+    // --- live remove favorites ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('favoritesGrid');
+        const favs = JSON.parse(getCookie('plusflix_favorites') || '[]');
+
+        // якщо немає улюблених — показуємо порожнє повідомлення
+        if (favs.length === 0 && grid) {
+            grid.innerHTML = "<div class='empty-state'><p>Nie masz żadnych ulubionych filmów ❤️</p></div>";
+        }
+
+        // додаємо обробку кнопок ❤️
+        const buttons = document.querySelectorAll('.favorite-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const movieId = parseInt(btn.dataset.movieId, 10);
+                let favs = JSON.parse(getCookie('plusflix_favorites') || '[]');
+
+                // видаляємо з cookie
+                favs = favs.filter(f => f !== movieId);
+                setCookie('plusflix_favorites', JSON.stringify(favs), 365);
+
+                // видаляємо картку з DOM
+                const card = btn.closest('.movie-card');
+                if (card) card.remove();
+
+                // якщо більше немає улюблених — показуємо повідомлення
+                if (!grid.querySelector('.movie-card')) {
+                    grid.innerHTML = "<div class='empty-state'><p>Nie masz żadnych ulubionych filmów ❤️</p></div>";
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>

@@ -1,64 +1,87 @@
-// Toggle favorite TODO trzeba zrobić backend narazie tylko popkazuje ikonkę
-function toggleFavorite(button) {
-    button.classList.toggle('active');
-    const heartIcon = button.querySelector('.heart-icon');
+/*************************
+ *  COOKIES – POMOCNICZE
+ *************************/
+const FAVORITES_COOKIE = 'plusflix_favorites';
+const COOKIE_DAYS = 365;
 
-    if (button.classList.contains('active')) {
-        heartIcon.textContent = '♥';
-    } else {
-        heartIcon.textContent = '♡';
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let c of cookies) {
+        c = c.trim();
+        if (c.startsWith(name + '=')) {
+            return decodeURIComponent(c.substring(name.length + 1));
+        }
     }
-
+    return null;
 }
 
-// Funkcja pobierająca listę ulubionych z pamięci przeglądarki
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${encodeURIComponent(value)};expires=${date.toUTCString()};path=/`;
+}
+
+function removeFromFavs(id) {
+    let favs = JSON.parse(getCookie('plusflix_favorites') || '[]');
+    favs = favs.filter(f => f !== id);
+    setCookie('plusflix_favorites', JSON.stringify(favs), 365);
+    location.reload();
+}
+
+/*************************
+ *  FAVORITES – LOGIKA
+ *************************/
 function getFavorites() {
-    const favs = localStorage.getItem('plusflix_favorites');
+    const favs = getCookie(FAVORITES_COOKIE);
     return favs ? JSON.parse(favs) : [];
 }
 
-// Funkcja zapisująca listę
 function saveFavorites(favs) {
-    localStorage.setItem('plusflix_favorites', JSON.stringify(favs));
+    setCookie(FAVORITES_COOKIE, JSON.stringify(favs), COOKIE_DAYS);
 }
 
+/*************************
+ *  TOGGLE FAVORITE
+ *************************/
 function toggleFavorite(button, movieId) {
     let favs = getFavorites();
     const index = favs.indexOf(movieId);
 
     if (index === -1) {
-        // Dodaj do ulubionych
+        // dodaj do ulubionych
         favs.push(movieId);
         button.classList.add('active');
-        button.querySelector('.heart-icon').innerText = '❤️'; // Zmiana na pełne serce
+        button.querySelector('.heart-icon').innerText = '❤️';
     } else {
-        // Usuń z ulubionych
+        // usuń z ulubionych
         favs.splice(index, 1);
         button.classList.remove('active');
-        button.querySelector('.heart-icon').innerText = '♡'; // Powrót do pustego
+        button.querySelector('.heart-icon').innerText = '♡';
     }
 
     saveFavorites(favs);
 }
 
-// Funkcja, która przy starcie strony sprawdzi, które filmy są ulubione i zapali serca
+/*************************
+ *  INIT FAVORITES
+ *************************/
 function initFavorites() {
     const favs = getFavorites();
     const buttons = document.querySelectorAll('.favorite-btn, .favorite-btn-large');
 
     buttons.forEach(btn => {
-        // Pobieramy ID filmu z atrybutu przekazanego w funkcji onclick (parsujemy string)
         const onclickAttr = btn.getAttribute('onclick');
-        const match = onclickAttr.match(/toggleFavorite\(this,\s*(\d+)\)/);
+        const match = onclickAttr?.match(/toggleFavorite\(this,\s*(\d+)\)/);
 
         if (match && match[1]) {
-            const id = parseInt(match[1]);
-            if (favs.includes(id)) {
+            const movieId = parseInt(match[1], 10);
+
+            if (favs.includes(movieId)) {
                 btn.classList.add('active');
+
                 const icon = btn.querySelector('.heart-icon');
                 if (icon) icon.innerText = '❤️';
 
-                // Jeśli to duży przycisk na stronie movie.php, zmień tekst
                 const textSpan = btn.querySelector('.favorite-text');
                 if (textSpan) textSpan.innerText = 'Ulubiony';
             }
@@ -66,5 +89,7 @@ function initFavorites() {
     });
 }
 
-// Uruchom przy załadowaniu strony
+/*************************
+ *  START
+ *************************/
 document.addEventListener('DOMContentLoaded', initFavorites);
